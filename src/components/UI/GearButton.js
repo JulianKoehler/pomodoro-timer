@@ -1,9 +1,10 @@
 import React from "react";
+import styled from "styled-components";
 import settingsIcon from "../../assets/icon-settings.svg";
 
 const GearButton = () => {
   return (
-    <img
+    <GearIcon
       src={settingsIcon}
       alt="settings"
     />
@@ -11,3 +12,9 @@ const GearButton = () => {
 };
 
 export default GearButton;
+
+const GearIcon = styled.img`
+  display: block;
+  margin: 2rem auto;
+  cursor: pointer;
+`;
