@@ -5,13 +5,16 @@ import App from "./App";
 
 import ColorProvider from "./store/Color/ColorProvider";
 import PhaseProvider from "./store/Phase/PhaseProvider";
+import TimerProvider from "./store/Timer/TimerProvider";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <ColorProvider>
       <PhaseProvider>
-        <App />
+        <TimerProvider>
+          <App />
+        </TimerProvider>
       </PhaseProvider>
     </ColorProvider>
   </React.StrictMode>

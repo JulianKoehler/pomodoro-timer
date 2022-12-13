@@ -1,26 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import useTimer from "../../hooks/useTimer";
 import styled from "styled-components";
+import classes from "./Clock.module.css";
 import ColorContext from "../../store/Color/color-context";
 import PhaseContext from "../../store/Phase/phase-context";
 
 const Clock = () => {
   const colorCtx = useContext(ColorContext);
-  const { currentPhase, PHASES, setPhase } = useContext(PhaseContext);
-  const { timer, timerDuration, hasTimerStarted, isTimerExpired, isTimerPaused, startTimer, pauseTimer, resumeTimer } =
-    useTimer();
 
-  const controlText = isTimerExpired ? "restart" : isTimerPaused ? "resume" : hasTimerStarted ? "pause" : "start";
+  const {
+    timer,
+    timerDuration,
+    hasTimerStarted,
+    isTimerExpired,
+    isTimerPaused,
+    startTimer,
+    pauseTimer,
+    resumeTimer,
+    restartTimer,
+  } = useTimer();
+
+  const controlText = isTimerExpired
+    ? "restart"
+    : isTimerPaused
+    ? "resume"
+    : hasTimerStarted
+    ? "pause"
+    : "start";
+  const minutes = `0${Math.floor(timer / 60)}`.slice(-2);
+  const seconds = `0${timer % 60}`.slice(-2);
 
   return (
     <ClockContainer>
       <InnerClockCircle>
         <ProgressBar
           color={colorCtx.color}
-          time={timerDuration / 1000}
+          time={timerDuration}
           paused={isTimerPaused}
           started={hasTimerStarted}>
           <svg
+            className={hasTimerStarted ? classes["clock-animation"] : null}
             xmlns="http://www.w3.org/2000/svg"
             version="1.1"
             width="160px"
@@ -32,7 +51,9 @@ const Clock = () => {
               strokeLinecap="round"
             />
           </svg>
-          <Time>{timer}</Time>
+          <Time>
+            {minutes}:{seconds}
+          </Time>
           {!hasTimerStarted && !isTimerExpired && (
             <TimerController
               onClick={startTimer}
@@ -56,7 +77,7 @@ const Clock = () => {
           )}
           {isTimerExpired && (
             <TimerController
-              onClick={startTimer}
+              onClick={restartTimer}
               color={colorCtx.color}>
               restart
             </TimerController>
@@ -107,14 +128,10 @@ const ProgressBar = styled.div`
     transform: scale(2.25) rotate(-89.5deg);
     stroke-dasharray: 440;
     stroke-dashoffset: 0;
-    animation: progress ${props => props.time}s linear forwards;
+    animation-duration: ${props => props.time}s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
     animation-play-state: ${props => (props.started && !props.paused ? "running" : "paused")};
-  }
-
-  @keyframes progress {
-    100% {
-      stroke-dashoffset: 440;
-    }
   }
 `;
 

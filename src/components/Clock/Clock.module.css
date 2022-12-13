@@ -1,0 +1,9 @@
+.clock-animation {
+  animation-name: progress;
+}
+
+@keyframes progress {
+  100% {
+    stroke-dashoffset: 440;
+  }
+}
