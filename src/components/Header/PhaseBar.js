@@ -2,18 +2,18 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import Phase from "./Phase";
 
-import PhaseContext from "../../store/Phase/phase-context";
+import SettingsContext from "../../store/Settings/settings-context";
 
 const PhaseBar = () => {
-  const phaseCtx = useContext(PhaseContext);
+  const { PHASES, currentPhase } = useContext(SettingsContext);
 
   return (
     <Bar>
-      {phaseCtx.PHASES.map(phase => {
+      {PHASES.map(phase => {
         return (
           <Phase
             key={phase}
-            active={phaseCtx.currentPhase === phase}>
+            active={currentPhase === phase}>
             {phase}
           </Phase>
         );

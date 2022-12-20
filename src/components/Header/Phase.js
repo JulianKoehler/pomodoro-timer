@@ -1,21 +1,19 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import useTimer from "../../hooks/useTimer";
-import ColorContext from "../../store/Color/color-context";
-import PhaseContext from "../../store/Phase/phase-context";
+import SettingsContext from "../../store/Settings/settings-context";
 import TimerContext from "../../store/Timer/timer-context";
 
 const Phase = props => {
-  const colorCtx = useContext(ColorContext);
-  const phaseContext = useContext(PhaseContext);
-  const timerContext = useContext(TimerContext);
+  const { color, setPhase } = useContext(SettingsContext);
+  const { setHasTimerStarted, setIsTimerExpired, setIsTimerPaused } = useContext(TimerContext);
   const { resetTimer } = useTimer();
 
   const changePhaseHandler = () => {
-    phaseContext.setPhase(props.children);
-    timerContext.setHasTimerStarted(false);
-    timerContext.setIsTimerExpired(false);
-    timerContext.setIsTimerPaused(false);
+    setPhase(props.children);
+    setHasTimerStarted(false);
+    setIsTimerExpired(false);
+    setIsTimerPaused(false);
     resetTimer();
   };
 
@@ -23,8 +21,8 @@ const Phase = props => {
     <PhaseContainer
       onClick={changePhaseHandler}
       active={props.active}
-      color={colorCtx.color}>
-      <TextContent active={props.active}>{props.children}</TextContent>
+      color={color}>
+      <TextContent active={props.active}>{props.children.split("-").join(" ")}</TextContent>
     </PhaseContainer>
   );
 };

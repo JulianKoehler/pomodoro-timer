@@ -1,26 +1,34 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Clock from "./components/Clock/Clock";
 import LogoImage from "./components/Header/Logo";
 import PhaseBar from "./components/Header/PhaseBar";
+import SettingsModal from "./components/Settings/SettingsModal";
 import GearButton from "./components/UI/GearButton";
 
-import ColorContext from "./store/Color/color-context";
+import SettingsContext from "./store/Settings/settings-context";
 
 function App() {
-  const colorCtx = useContext(ColorContext);
+  const { font } = useContext(SettingsContext);
+
+  const [showSettings, setShowSettings] = useState(false);
+
+  const closeModalHandler = () => {
+    setShowSettings(false);
+  };
 
   return (
-    <React.Fragment>
+    <div style={{ fontFamily: font }}>
       <LogoImage
         width="156px"
         height="32px"
         blockElement={true}
-        margin={"3rem auto"}
+        margin={"4rem auto"}
       />
       <PhaseBar />
       <Clock />
-      <GearButton />
-    </React.Fragment>
+      <GearButton onClick={() => setShowSettings(true)} />
+      {showSettings && <SettingsModal closeModal={closeModalHandler} />}
+    </div>
   );
 }
 

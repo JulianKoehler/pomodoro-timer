@@ -2,11 +2,10 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 import useTimer from "../../hooks/useTimer";
 import styled from "styled-components";
 import classes from "./Clock.module.css";
-import ColorContext from "../../store/Color/color-context";
-import PhaseContext from "../../store/Phase/phase-context";
+import SettingsContext from "../../store/Settings/settings-context";
 
 const Clock = () => {
-  const colorCtx = useContext(ColorContext);
+  const settingsCtx = useContext(SettingsContext);
 
   const {
     timer,
@@ -34,7 +33,7 @@ const Clock = () => {
     <ClockContainer>
       <InnerClockCircle>
         <ProgressBar
-          color={colorCtx.color}
+          color={settingsCtx.color}
           time={timerDuration}
           paused={isTimerPaused}
           started={hasTimerStarted}>
@@ -57,28 +56,28 @@ const Clock = () => {
           {!hasTimerStarted && !isTimerExpired && (
             <TimerController
               onClick={startTimer}
-              color={colorCtx.color}>
+              color={settingsCtx.color}>
               {controlText}
             </TimerController>
           )}
           {hasTimerStarted && !isTimerPaused && !isTimerExpired && (
             <TimerController
               onClick={pauseTimer}
-              color={colorCtx.color}>
+              color={settingsCtx.color}>
               pause
             </TimerController>
           )}
           {hasTimerStarted && isTimerPaused && !isTimerExpired && (
             <TimerController
               onClick={resumeTimer}
-              color={colorCtx.color}>
+              color={settingsCtx.color}>
               {controlText}
             </TimerController>
           )}
           {isTimerExpired && (
             <TimerController
               onClick={restartTimer}
-              color={colorCtx.color}>
+              color={settingsCtx.color}>
               restart
             </TimerController>
           )}
@@ -138,9 +137,10 @@ const ProgressBar = styled.div`
 const Time = styled.h1`
   position: absolute;
   top: 15%;
-  left: 18%;
+  left: 0;
   color: var(--gray);
   display: flex;
+  justify-content: center;
   width: 100%;
 `;
 

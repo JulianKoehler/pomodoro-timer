@@ -4,14 +4,16 @@ import logo from "../../assets/logo.svg";
 
 const Logo = props => {
   return (
-    <LogoImage
-      width={props.width}
-      height={props.height}
-      blockElement={props.blockElement}
-      margin={props.margin}
-      src={logo}
-      alt="pomodoro-logo"
-    />
+    <div>
+      <LogoImage
+        width={props.width}
+        height={props.height}
+        blockElement={props.blockElement}
+        margin={props.margin}
+        src={logo}
+        alt="pomodoro-logo"
+      />
+    </div>
   );
 };
 

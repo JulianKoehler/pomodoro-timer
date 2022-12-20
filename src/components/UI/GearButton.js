@@ -2,9 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import settingsIcon from "../../assets/icon-settings.svg";
 
-const GearButton = () => {
+const GearButton = props => {
   return (
     <GearIcon
+      onClick={props.onClick}
       src={settingsIcon}
       alt="settings"
     />

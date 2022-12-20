@@ -17,6 +17,10 @@
   --white: #ffffff;
   --washed-out-white: #eff1fa;
   --very-dark-blue: #161932;
+  --border-bottom: #e3e1e1;
+
+  /* Measures */
+  --modal-padding: 1.8em;
 }
 
 *,
@@ -27,8 +31,9 @@
 }
 
 body {
-  font-family: var(--font-option-1);
   background-color: var(--dark-blue);
+  margin: 0;
+  padding: 0;
 }
 
 h1,
@@ -70,4 +75,33 @@ h4 {
 p {
   font-size: 14px;
   line-height: 18px;
+}
+
+#root {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  height: 100%;
+}
+
+#overlay {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.font-option-1 {
+  font-family: var(--font-option-1);
+}
+
+.font-option-2 {
+  font-family: var(--font-option-2);
+}
+
+.font-option-3 {
+  font-family: var(--font-option-3);
 }

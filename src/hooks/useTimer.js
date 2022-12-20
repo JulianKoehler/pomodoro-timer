@@ -1,11 +1,11 @@
 import React, { useContext, useState, useRef, useEffect } from "react";
-import PhaseContext from "../store/Phase/phase-context";
+import SettingsContext from "../store/Settings/settings-context";
 import TimerContext from "../store/Timer/timer-context";
 
 let intervalID;
 
 const useTimer = () => {
-  const { currentPhase, phaseDurations, PHASES, setPhase } = useContext(PhaseContext);
+  const { currentPhase, phaseDurations, alarm } = useContext(SettingsContext);
   const {
     hasTimerStarted,
     setHasTimerStarted,
@@ -81,6 +81,8 @@ const useTimer = () => {
 
   useEffect(() => {
     if (timer === 0) {
+      const alarmSound = new Audio(alarm);
+      alarmSound.play();
       clearInterval(intervalID);
       setIsTimerExpired(true);
       setHasTimerStarted(false);
