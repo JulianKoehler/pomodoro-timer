@@ -26,9 +26,17 @@ const Head = styled.div`
 const CloseBtn = styled.button`
   background-color: transparent;
   border: none;
-  width: 14px;
-  height: 14px;
+  width: 2.5em;
+  height: 2.5em;
   background-image: url(${props => props.image});
-  background-size: contain;
+  background-repeat: no-repeat;
+  background-size: 40%;
+  background-position: center;
+  border-radius: 50%;
   cursor: pointer;
+  transition: background-color 0.35s;
+
+  &:hover {
+    background-color: var(--washed-out-white);
+  }
 `;

@@ -2,12 +2,14 @@ import React, { useContext } from "react";
 import styled from "styled-components";
 import SettingsContext from "../../store/Settings/settings-context";
 
-const Selection = ({ type }) => {
+const Selection = ({ type, settings, dispatch }) => {
   const {
     COLOR_OPTIONS,
     FONT_OPTIONS,
+    ALARM_OPTIONS,
     color: currentColor,
     font: currentFont,
+    alarm: currentAlarm,
     setColor,
     setFont,
   } = useContext(SettingsContext);
@@ -17,7 +19,7 @@ const Selection = ({ type }) => {
       <Option
         onClick={() => setColor(color)}
         backgroundColor={color}>
-        {color === currentColor && <i class="fa-solid fa-check"></i>}
+        {color === currentColor && <i className="fa-solid fa-check"></i>}
       </Option>
     );
   });
@@ -35,11 +37,31 @@ const Selection = ({ type }) => {
     );
   });
 
+  const alarmPlayHandler = alarm => {
+    const audio = new Audio(alarm);
+    audio.play();
+  };
+
+  let alarmNumber = 0; // This variable makes it easy to label each alarm with a consecutive number
+  const alarmOptions = ALARM_OPTIONS.map(alarm => {
+    alarmNumber++;
+    const active = alarm === currentAlarm;
+    return (
+      <Option
+        onMouseOver={() => alarmPlayHandler(alarm)}
+        backgroundColor={active ? "var(--very-dark-blue)" : "var(--washed-out-white)"}
+        color={active ? "var(--white)" : "var(--very-dark-blue)"}>
+        {alarmNumber}
+      </Option>
+    );
+  });
+
   return (
     <SelectionWrapper>
       <Category>{type}</Category>
       {type === "color" && colorOptions}
       {type === "font" && fontOptions}
+      {type === "audio" && alarmOptions}
     </SelectionWrapper>
   );
 };

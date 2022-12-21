@@ -1,12 +1,24 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import useTimer from "../../hooks/useTimer";
 import SettingsContext from "../../store/Settings/settings-context";
 import TimerContext from "../../store/Timer/timer-context";
+import SkipPhaseModal from "./SkipPhaseModal";
 
 const Phase = props => {
+  const [skipModal, setSkipModal] = useState(false);
+
+  const openModalHandler = () => {
+    setSkipModal(true);
+  };
+
+  const closeModalHandler = () => {
+    setSkipModal(false);
+  };
+
   const { color, setPhase } = useContext(SettingsContext);
-  const { setHasTimerStarted, setIsTimerExpired, setIsTimerPaused } = useContext(TimerContext);
+  const { setHasTimerStarted, setIsTimerExpired, setIsTimerPaused, hasTimerStarted } =
+    useContext(TimerContext);
   const { resetTimer } = useTimer();
 
   const changePhaseHandler = () => {
@@ -14,16 +26,31 @@ const Phase = props => {
     setHasTimerStarted(false);
     setIsTimerExpired(false);
     setIsTimerPaused(false);
+    setSkipModal(false);
     resetTimer();
   };
 
   return (
-    <PhaseContainer
-      onClick={changePhaseHandler}
-      active={props.active}
-      color={color}>
-      <TextContent active={props.active}>{props.children.split("-").join(" ")}</TextContent>
-    </PhaseContainer>
+    <React.Fragment>
+      <PhaseContainer
+        onClick={
+          hasTimerStarted && !props.active
+            ? openModalHandler
+            : !props.active
+            ? changePhaseHandler
+            : null
+        }
+        active={props.active}
+        color={color}>
+        <TextContent active={props.active}>{props.children.split("-").join(" ")}</TextContent>
+      </PhaseContainer>
+      {skipModal && (
+        <SkipPhaseModal
+          closeModal={closeModalHandler}
+          skip={changePhaseHandler}
+        />
+      )}
+    </React.Fragment>
   );
 };
 
@@ -38,7 +65,7 @@ const PhaseContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  cursor: pointer;
+  cursor: ${props => (props.active ? "default" : "pointer")};
 `;
 
 const TextContent = styled.p`

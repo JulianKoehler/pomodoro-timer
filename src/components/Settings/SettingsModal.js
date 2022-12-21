@@ -63,14 +63,28 @@ const SettingsModal = props => {
 
   const onSubmitHandler = () => {
     // hier werden die Settings angewendet
+    console.log(settings);
   };
 
   return (
     <Modal className={classes.settings}>
       <SettingsHeader closeModal={props.closeModal} />
       <TimeModifier />
-      <Selection type="font" />
-      <Selection type="color" />
+      <Selection
+        settings={settings}
+        dispatch={dispatchSettings}
+        type="font"
+      />
+      <Selection
+        settings={settings}
+        dispatch={dispatchSettings}
+        type="color"
+      />
+      <Selection
+        settings={settings}
+        dispatch={dispatchSettings}
+        type="audio"
+      />
       <Button
         onClick={onSubmitHandler}
         className={classes["apply-settings-btn"]}>

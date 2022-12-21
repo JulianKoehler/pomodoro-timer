@@ -1,8 +1,9 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import Phase from "./Phase";
 
 import SettingsContext from "../../store/Settings/settings-context";
+import SkipPhaseModal from "./SkipPhaseModal";
 
 const PhaseBar = () => {
   const { PHASES, currentPhase } = useContext(SettingsContext);
