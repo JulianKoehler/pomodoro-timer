@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import SettingsContext from "../../store/Settings/settings-context";
 
@@ -19,9 +19,10 @@ export default Button;
 
 const Btn = styled.button`
   background-color: ${props => props.color};
-  border-radius: 26.5px;
+  border-radius: 1.65625em;
   font-size: 1em;
   font-weight: 700;
+  font-family: inherit;
   color: white;
   border: none;
   padding: 1em 3em;

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import { useContext, useState } from "react";
 import Clock from "./components/Clock/Clock";
 import LogoImage from "./components/Header/Logo";
 import PhaseBar from "./components/Header/PhaseBar";

@@ -15,7 +15,7 @@ const Backdrop = styled.div`
 const ModalOverlay = styled.div`
   width: fit-content;
   height: fit-content;
-  border-radius: 25px;
+  border-radius: 1.5625rem;
   background-color: var(--white);
   font-family: ${props => props.font};
   position: relative;

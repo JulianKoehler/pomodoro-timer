@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import { useContext } from "react";
 import useTimer from "../../hooks/useTimer";
 import styled from "styled-components";
 import classes from "./Clock.module.css";
 import SettingsContext from "../../store/Settings/settings-context";
 
 const Clock = () => {
-  const settingsCtx = useContext(SettingsContext);
+  const { color } = useContext(SettingsContext);
 
   const {
     timer,
@@ -33,7 +33,7 @@ const Clock = () => {
     <ClockContainer>
       <InnerClockCircle>
         <ProgressBar
-          color={settingsCtx.color}
+          color={color}
           time={timerDuration}
           paused={isTimerPaused}
           started={hasTimerStarted}>
@@ -56,28 +56,28 @@ const Clock = () => {
           {!hasTimerStarted && !isTimerExpired && (
             <TimerController
               onClick={startTimer}
-              color={settingsCtx.color}>
+              color={color}>
               {controlText}
             </TimerController>
           )}
           {hasTimerStarted && !isTimerPaused && !isTimerExpired && (
             <TimerController
               onClick={pauseTimer}
-              color={settingsCtx.color}>
+              color={color}>
               pause
             </TimerController>
           )}
           {hasTimerStarted && isTimerPaused && !isTimerExpired && (
             <TimerController
               onClick={resumeTimer}
-              color={settingsCtx.color}>
+              color={color}>
               {controlText}
             </TimerController>
           )}
           {isTimerExpired && (
             <TimerController
               onClick={restartTimer}
-              color={settingsCtx.color}>
+              color={color}>
               restart
             </TimerController>
           )}
@@ -90,21 +90,26 @@ const Clock = () => {
 export default Clock;
 
 const ClockContainer = styled.div`
-  width: 410px;
-  height: 410px;
+  width: 25.625em;
+  height: 25.625em;
   border-radius: 50%;
   background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
-  box-shadow: -50px -50px 100px #272c5a, 50px 50px 100px #121530;
+  box-shadow: -3.125rem -3.125rem 6.25rem #272c5a, 3.125rem 3.125rem 6.25rem #121530;
   margin: 5.5rem auto;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media (max-width: 600) {
+    transform: scale(0.9);
+    margin: 2.5rem auto;
+  }
 `;
 
 const InnerClockCircle = styled.div`
   background-color: var(--very-dark-blue);
-  width: 366px;
-  height: 366px;
+  width: 22.875rem;
+  height: 22.875rem;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -113,8 +118,8 @@ const InnerClockCircle = styled.div`
 `;
 
 const ProgressBar = styled.div`
-  width: 339px;
-  height: 339px;
+  width: 21.1875rem;
+  height: 21.1875rem;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -146,10 +151,10 @@ const Time = styled.h1`
 
 const TimerController = styled.h3`
   position: absolute;
-  padding-left: 1rem;
   color: var(--gray);
-  top: 70%;
+  top: 15%;
   cursor: pointer;
+  padding: 12rem 4rem 2rem 5rem;
 
   &:hover {
     color: ${props => props.color};

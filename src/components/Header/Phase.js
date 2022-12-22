@@ -57,10 +57,10 @@ const Phase = props => {
 export default Phase;
 
 const PhaseContainer = styled.div`
-  width: 120px;
-  height: 48px;
-  margin: 8px 0 7px 0;
-  border-radius: 26.5px;
+  width: 7.5rem;
+  height: 3rem;
+  margin: 0.5rem 0 0.4375rem 0;
+  border-radius: 1.65625rem;
   background-color: ${props => (props.active ? props.color : "transparent")};
   display: flex;
   justify-content: center;

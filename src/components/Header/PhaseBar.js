@@ -1,9 +1,8 @@
-import React, { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import Phase from "./Phase";
 
 import SettingsContext from "../../store/Settings/settings-context";
-import SkipPhaseModal from "./SkipPhaseModal";
 
 const PhaseBar = () => {
   const { PHASES, currentPhase } = useContext(SettingsContext);
@@ -28,9 +27,9 @@ export default PhaseBar;
 const Bar = styled.div`
   width: fit-content;
   height: fit-content;
-  border-radius: 31.5px;
+  border-radius: 1.96875rem;
   background-color: var(--very-dark-blue);
-  margin: 4.5rem auto;
+  margin: 3.5rem auto 0;
   display: flex;
   justify-content: space-around;
   align-items: center;

@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import SettingsContext from "../store/Settings/settings-context";
 import TimerContext from "../store/Timer/timer-context";
 
@@ -21,7 +21,7 @@ const useTimer = () => {
 
   /** startBtnClicked is purely for triggering the useEffect which starts a new Timer.
    * hasTimerStarted is not appropriate for that since it can change back to false and when
-   * it becomes false I dont want to set another Interval
+   * it becomes false I dont want to set another Interval, so I just created a variable that increments each click
    */
   const [startBtnClicked, setStartBtnClicked] = useState(0);
 
@@ -69,7 +69,7 @@ const useTimer = () => {
     if (isFirstRender.current) {
       setTimeout(() => (isFirstRender.current = false), 10);
     } else {
-      clearInterval(intervalID);
+      if (intervalID) clearInterval(intervalID);
       intervalID = setInterval(countDown, 1000);
     }
     return () => clearInterval(intervalID);
@@ -89,7 +89,7 @@ const useTimer = () => {
     }
   }, [timer]);
 
-  /** When the phase is being changed the state of timer wont be updated allthough its variable value is changing.
+  /** When the phase is being changed the state of the timer wont be updated allthough its variable value is changing.
    * That's why I need to listen for changes on timerDuration to setTimer with its changed value.
    */
 

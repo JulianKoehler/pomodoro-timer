@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import closeIcon from "../../assets/icon-close.svg";
+import closeIcon from "../../assets/images/icon-close.svg";
 
 const SettingsHeader = props => {
   return (

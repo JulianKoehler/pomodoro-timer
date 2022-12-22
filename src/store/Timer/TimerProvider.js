@@ -1,11 +1,11 @@
-import React, { useState, useReducer } from "react";
+import { useReducer } from "react";
 import TimerContext from "./timer-context";
 
 const ACTIONS = {
-  TIMER_STARTED: "TIMER_STARTED",
-  TIMER_EXPIRED: "TIMER_EXPIRED",
-  TIMER_PAUSED: "TIMER_PAUSED",
-  CIRCLE_STROKE_CHANGED: "CIRCLE_STROKE_CHANGED",
+  TIMER_STARTED: "started",
+  TIMER_EXPIRED: "expired",
+  TIMER_PAUSED: "paused",
+  CIRCLE_STROKE_CHANGED: "stroke",
 };
 
 const defaultState = {

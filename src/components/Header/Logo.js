@@ -1,6 +1,5 @@
-import React from "react";
 import styled from "styled-components";
-import logo from "../../assets/logo.svg";
+import logo from "../../assets/images/logo.svg";
 
 const Logo = props => {
   return (
@@ -24,4 +23,8 @@ const LogoImage = styled.img`
   width: ${props => props.width};
   height: ${props => props.height};
   margin: ${props => props.margin};
+
+  @media (max-width: 600) {
+    margin: 2rem auto 3rem;
+  }
 `;

@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from "react";
+import { useState, useReducer } from "react";
 import SettingsContext from "./settings-context";
 import alarm1 from "../../assets/sounds/alarm-1.mp3";
 import alarm2 from "../../assets/sounds/alarm-2.mp3";
@@ -18,9 +18,17 @@ const SettingsProvider = props => {
     LONG_BREAK: "long-break",
   };
 
-  const [selectedColor, setSelectedColor] = useState(COLOR_OPTIONS[0]);
-  const [selectedFont, setSelectedFont] = useState(FONT_OPTIONS[0]);
-  const [selectedAlarm, setSelectedAlarm] = useState(ALARM_OPTIONS[0]);
+  const savedSettings = JSON.parse(localStorage.getItem("settings"));
+
+  const [selectedColor, setSelectedColor] = useState(
+    savedSettings ? savedSettings.color : COLOR_OPTIONS[0]
+  );
+  const [selectedFont, setSelectedFont] = useState(
+    savedSettings ? savedSettings.font : FONT_OPTIONS[0]
+  );
+  const [selectedAlarm, setSelectedAlarm] = useState(
+    savedSettings ? savedSettings.alarm : ALARM_OPTIONS[0]
+  );
 
   const PHASES = ["pomodoro", "short-break", "long-break"];
   const CYCLE = [
@@ -34,10 +42,11 @@ const SettingsProvider = props => {
     PHASES[2],
   ];
 
-  const defaultTimers = {
-    pomodoro: 1500,
-    "short-break": 300,
-    "long-break": 900,
+  // Timers are in seconds because the Interval decrementing the number is set to 1 second as well
+  const timers = {
+    pomodoro: savedSettings ? savedSettings.pomodoro : 1500,
+    "short-break": savedSettings ? savedSettings["short-break"] : 300,
+    "long-break": savedSettings ? savedSettings["long-break"] : 900,
   };
 
   const phaseReducer = (state, action) => {
@@ -64,7 +73,7 @@ const SettingsProvider = props => {
     }
   };
 
-  const [phaseDurations, dispatchPhaseDurations] = useReducer(phaseReducer, defaultTimers);
+  const [phaseDurations, dispatchPhaseDurations] = useReducer(phaseReducer, timers);
 
   const [currentPhase, setCurrentPhase] = useState(PHASES[0]);
 
@@ -92,15 +101,20 @@ const SettingsProvider = props => {
     setSelectedFont(font);
   };
 
+  const changeAlarmHandler = alarm => {
+    setSelectedAlarm(alarm);
+  };
+
   const settingsContext = {
     color: selectedColor,
     font: selectedFont,
     alarm: selectedAlarm,
+    setColor: changeColorHandler,
+    setFont: changeFontHandler,
+    setAlarm: changeAlarmHandler,
     COLOR_OPTIONS,
     FONT_OPTIONS,
     ALARM_OPTIONS,
-    setColor: changeColorHandler,
-    setFont: changeFontHandler,
     PHASES,
     phaseDurations,
     CYCLE,
