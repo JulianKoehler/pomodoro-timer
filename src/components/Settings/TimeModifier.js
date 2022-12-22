@@ -193,6 +193,7 @@ const Input = styled.input`
   &::-webkit-outer-spin-button {
     -webkit-appearance: none;
   }
+  -moz-appearance: textfield;
 
   @media (max-width: 600px) {
     width: 5.5rem;
