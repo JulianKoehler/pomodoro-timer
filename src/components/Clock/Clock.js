@@ -4,8 +4,11 @@ import styled from "styled-components";
 import classes from "./Clock.module.css";
 import SettingsContext from "../../store/Settings/settings-context";
 
+let alarmID;
+
 const Clock = () => {
-  const { color } = useContext(SettingsContext);
+  const { color, alarm } = useContext(SettingsContext);
+  const alarmSound = new Audio(alarm);
 
   const {
     timer,
@@ -28,6 +31,32 @@ const Clock = () => {
     : "start";
   const minutes = `0${Math.floor(timer / 60)}`.slice(-2);
   const seconds = `0${timer % 60}`.slice(-2);
+
+  const setAlarmSound = () => {
+    alarmSound.play();
+    alarmSound.pause();
+    alarmID = setTimeout(() => alarmSound.play(), timer * 1000);
+  };
+
+  const startTimerHandler = () => {
+    startTimer();
+    setAlarmSound();
+  };
+
+  const pauseTimerHandler = () => {
+    pauseTimer();
+    clearTimeout(alarmID);
+  };
+
+  const resumeTimerHandler = () => {
+    resumeTimer();
+    setAlarmSound();
+  };
+
+  const restartTimerHandler = () => {
+    restartTimer();
+    setAlarmSound();
+  };
 
   return (
     <ClockContainer>
@@ -55,28 +84,28 @@ const Clock = () => {
           </Time>
           {!hasTimerStarted && !isTimerExpired && (
             <TimerController
-              onClick={startTimer}
+              onClick={startTimerHandler}
               color={color}>
               {controlText}
             </TimerController>
           )}
           {hasTimerStarted && !isTimerPaused && !isTimerExpired && (
             <TimerController
-              onClick={pauseTimer}
+              onClick={pauseTimerHandler}
               color={color}>
               pause
             </TimerController>
           )}
           {hasTimerStarted && isTimerPaused && !isTimerExpired && (
             <TimerController
-              onClick={resumeTimer}
+              onClick={resumeTimerHandler}
               color={color}>
               {controlText}
             </TimerController>
           )}
           {isTimerExpired && (
             <TimerController
-              onClick={restartTimer}
+              onClick={restartTimerHandler}
               color={color}>
               restart
             </TimerController>
@@ -100,9 +129,9 @@ const ClockContainer = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 600) {
+  @media (max-width: 600px) {
     transform: scale(0.9);
-    margin: 2.5rem auto;
+    margin: 2.5rem auto 0;
   }
 `;
 

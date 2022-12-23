@@ -5,7 +5,7 @@ import TimerContext from "../store/Timer/timer-context";
 let intervalID;
 
 const useTimer = () => {
-  const { currentPhase, phaseDurations, alarm } = useContext(SettingsContext);
+  const { currentPhase, phaseDurations } = useContext(SettingsContext);
   const {
     hasTimerStarted,
     setHasTimerStarted,
@@ -81,8 +81,6 @@ const useTimer = () => {
 
   useEffect(() => {
     if (timer === 0) {
-      const alarmSound = new Audio(alarm);
-      alarmSound.play();
       clearInterval(intervalID);
       setIsTimerExpired(true);
       setHasTimerStarted(false);
