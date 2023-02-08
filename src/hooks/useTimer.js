@@ -85,7 +85,7 @@ const useTimer = () => {
       setIsTimerExpired(true);
       setHasTimerStarted(false);
     }
-  }, [timer]);
+  }, [timer, setIsTimerExpired, setHasTimerStarted]);
 
   /** When the phase is being changed the state of the timer wont be updated allthough its variable value is changing.
    * That's why I need to listen for changes on timerDuration to setTimer with its changed value.

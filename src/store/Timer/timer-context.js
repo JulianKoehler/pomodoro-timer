@@ -6,7 +6,6 @@ const TimerContext = React.createContext({
   isTimerPaused: false,
   strokeCircle: 0,
   setHasTimerStarted: () => {},
-  setHasTimerStarted: () => {},
   setIsTimerPaused: () => {},
   setStrokeCircle: () => {},
 });
