@@ -25,7 +25,7 @@ const ModalOverlay = styled.div`
 const Modal = props => {
   const { font } = useContext(SettingsContext);
   return (
-    <React.Fragment>
+    <>
       {ReactDOM.createPortal(<Backdrop />, document.getElementById("backdrop"))}
       {ReactDOM.createPortal(
         <ModalOverlay
@@ -35,7 +35,7 @@ const Modal = props => {
         </ModalOverlay>,
         document.getElementById("overlay")
       )}
-    </React.Fragment>
+    </>
   );
 };
 

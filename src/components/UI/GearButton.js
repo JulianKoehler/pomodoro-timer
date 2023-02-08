@@ -21,7 +21,7 @@ const IconContainer = styled.div`
   display: flexbox;
   justify-content: center;
   align-items: center;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 3px 0 0 1px;
   border-radius: 50%;
   cursor: pointer;

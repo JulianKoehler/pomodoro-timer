@@ -124,14 +124,22 @@ const ClockContainer = styled.div`
   border-radius: 50%;
   background: linear-gradient(315deg, #2e325a 0%, #0e112a 100%);
   box-shadow: -3.125rem -3.125rem 6.25rem #272c5a, 3.125rem 3.125rem 6.25rem #121530;
-  margin: 5.5rem auto;
+  margin: 0 auto 3.9375rem;
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media (max-width: 600px) {
-    transform: scale(0.9);
-    margin: 2.5rem auto 0;
+  @media (max-width: 450px) {
+    transform: scale(0.8);
+    margin: 0 auto 4.9375rem;
+  }
+  @media (max-width: 390px) {
+    transform: scale(0.75) translateX(-0.8rem);
+    margin: 0;
+  }
+  @media (max-width: 360px) {
+    transform: scale(0.7) translateX(-2rem);
+    margin: 0;
   }
 `;
 

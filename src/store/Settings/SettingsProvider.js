@@ -20,27 +20,12 @@ const SettingsProvider = props => {
 
   const savedSettings = JSON.parse(localStorage.getItem("settings"));
 
-  const [selectedColor, setSelectedColor] = useState(
-    savedSettings ? savedSettings.color : COLOR_OPTIONS[0]
-  );
-  const [selectedFont, setSelectedFont] = useState(
-    savedSettings ? savedSettings.font : FONT_OPTIONS[0]
-  );
-  const [selectedAlarm, setSelectedAlarm] = useState(
-    savedSettings ? savedSettings.alarm : ALARM_OPTIONS[0]
-  );
+  const [selectedColor, setSelectedColor] = useState(savedSettings ? savedSettings.color : COLOR_OPTIONS[0]);
+  const [selectedFont, setSelectedFont] = useState(savedSettings ? savedSettings.font : FONT_OPTIONS[0]);
+  const [selectedAlarm, setSelectedAlarm] = useState(savedSettings ? savedSettings.alarm : ALARM_OPTIONS[0]);
 
   const PHASES = ["pomodoro", "short-break", "long-break"];
-  const CYCLE = [
-    PHASES[0],
-    PHASES[1],
-    PHASES[0],
-    PHASES[1],
-    PHASES[0],
-    PHASES[1],
-    PHASES[0],
-    PHASES[2],
-  ];
+  const CYCLE = [PHASES[0], PHASES[1], PHASES[0], PHASES[1], PHASES[0], PHASES[1], PHASES[0], PHASES[2]];
 
   // Timers are in seconds because the Interval decrementing the number is set to 1 second as well
   const timers = {
@@ -125,9 +110,7 @@ const SettingsProvider = props => {
     setLongBreak: changeLongBreakHandler,
   };
 
-  return (
-    <SettingsContext.Provider value={settingsContext}>{props.children}</SettingsContext.Provider>
-  );
+  return <SettingsContext.Provider value={settingsContext}>{props.children}</SettingsContext.Provider>;
 };
 
 export default SettingsProvider;

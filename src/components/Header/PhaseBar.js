@@ -29,9 +29,17 @@ const Bar = styled.div`
   height: fit-content;
   border-radius: 1.96875rem;
   background-color: var(--very-dark-blue);
-  margin: 3.5rem auto 0;
+  margin: 0 auto 5%;
   display: flex;
   justify-content: space-around;
   align-items: center;
   padding-inline: 0.5rem;
+
+  @media (max-width: 390px) {
+    transform: scale(0.9);
+  }
+
+  @media (max-width: 360px) {
+    transform: scale(0.8) translateX(-0.8rem);
+  }
 `;
